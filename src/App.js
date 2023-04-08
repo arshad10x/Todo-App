@@ -28,12 +28,19 @@ export default function App() {
         onChange={(e) => setInputTodo(e.target.value)}
         value={inputTodo}
       />
-      <button onClick={handleAddTask}>ADD</button>
+      <button className="btn-add" onClick={handleAddTask}>
+        ADD
+      </button>
       <div>
         {todos.map((todo, index) => (
           <div className="todo" key={index}>
             <span>{todo}</span>
-            <button onClick={() => handleDeleteTask(todo)}>Delete</button>
+            <button
+              className="btn-delete"
+              onClick={() => handleDeleteTask(todo)}
+            >
+              Delete
+            </button>
           </div>
         ))}
       </div>
