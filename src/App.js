@@ -4,7 +4,9 @@ export default function App() {
   const [todos, setTodos] = useState([
     "Learn React.js",
     "Learn JS",
-    "Learn css"
+    "Learn css",
+    "Learn Sass",
+    "Learn "
   ]);
 
   const [inputTodo, setInputTodo] = useState("");
