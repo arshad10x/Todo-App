@@ -17,7 +17,10 @@ export default function App() {
   };
 
   // Deleting single Task
-
+  const handleDeleteTask = (deletedTodo) => {
+    const restTodos = todos.filter((todo) => todo !== deletedTodo);
+    setTodos(restTodos);
+  };
   return (
     <div>
       <input
@@ -27,10 +30,10 @@ export default function App() {
       />
       <button onClick={handleAddTask}>ADD</button>
       <div>
-        {todos.map((todos, index) => (
-          <div className="todo">
-            <span key={index}>{todos}</span>
-            <button>Delete</button>
+        {todos.map((todo, index) => (
+          <div className="todo" key={index}>
+            <span>{todo}</span>
+            <button onClick={() => handleDeleteTask(todo)}>Delete</button>
           </div>
         ))}
       </div>
