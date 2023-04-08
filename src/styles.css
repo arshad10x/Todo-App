@@ -10,3 +10,19 @@
 .todo span {
   margin-right: 12px;
 }
+
+.btn-add {
+  background-color: #198597;
+  border: none;
+  padding: 2px 5px;
+  margin-left: 5px;
+  color: #fff;
+}
+
+.btn-delete {
+  background-color: #909090;
+  border: none;
+  padding: 2px 5px;
+  border-radius: 4px;
+  color: #fff;
+}
