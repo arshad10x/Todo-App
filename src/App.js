@@ -1,4 +1,5 @@
 import { useState } from "react";
+import "./styles.css";
 
 export default function App() {
   const [todos, setTodos] = useState([
@@ -6,7 +7,7 @@ export default function App() {
     "Learn JS",
     "Learn css",
     "Learn Sass",
-    "Learn "
+    "Learn ",
   ]);
 
   const [inputTodo, setInputTodo] = useState("");
@@ -14,6 +15,9 @@ export default function App() {
     setTodos([...todos, inputTodo]);
     setInputTodo("");
   };
+
+  // Deleting single Task
+
   return (
     <div>
       <input
@@ -24,7 +28,10 @@ export default function App() {
       <button onClick={handleAddTask}>ADD</button>
       <div>
         {todos.map((todos, index) => (
-          <p key={index}>{todos}</p>
+          <div className="todo">
+            <span key={index}>{todos}</span>
+            <button>Delete</button>
+          </div>
         ))}
       </div>
     </div>
