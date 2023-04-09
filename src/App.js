@@ -1,38 +1,15 @@
-import { useState } from "react";
 import "./styles.css";
+import { useState } from "react";
+import Footer from "./components/Footer";
+import Todo from "./components/Todo";
+import TodoList from "./components/TodoList";
+import InputTask from "./components/InputTask";
 
-const Todo = ({ todo, toggleCompleteTask, handleDeleteTask }) => {
-  return (
-    <div className="todo">
-      <input
-        type="checkbox"
-        checked={todo.isCompleted}
-        onChange={() => toggleCompleteTask(todo.id)}
-      />
-      <span>{todo.task}</span>
-      <button className="btn-delete" onClick={() => handleDeleteTask(todo.id)}>
-        Delete
-      </button>
-    </div>
-  );
-};
-
-const Footer = ({ getActiveTodos, setFilter, clearCompletedTodos }) => {
-  return (
-    <div>
-      {getActiveTodos()} remaining todos
-      <button onClick={() => setFilter("All")}>All</button>
-      <button onClick={() => setFilter("Active")}>Active</button>
-      <button onClick={() => setFilter("Completed")}>Completed</button>
-      <button onClick={clearCompletedTodos}>Clear completed Task</button>
-    </div>
-  );
-};
-
-export default function App() {
+const App = () => {
   const [todos, setTodos] = useState([]);
   const [inputTodo, setInputTodo] = useState("");
   const [filter, setFilter] = useState("All");
+
   const handleAddTask = () => {
     setTodos([
       ...todos,
@@ -92,28 +69,16 @@ export default function App() {
 
   return (
     <div>
-      <input
-        type="text"
-        onChange={(e) => setInputTodo(e.target.value)}
-        value={inputTodo}
+      <InputTask
+        setInputTodo={setInputTodo}
+        inputTodo={inputTodo}
+        handleAddTask={handleAddTask}
       />
-      <button className="btn-add" onClick={handleAddTask}>
-        ADD
-      </button>
-      <div>
-        {handleFilter().length > 0 ? (
-          handleFilter().map((todo) => (
-            <Todo
-              key={todo.id}
-              todo={todo}
-              toggleCompleteTask={toggleCompleteTask}
-              handleDeleteTask={handleDeleteTask}
-            />
-          ))
-        ) : (
-          <p>No Task avaliable</p>
-        )}
-      </div>
+      <TodoList
+        handleFilter={handleFilter}
+        toggleCompleteTask={toggleCompleteTask}
+        handleDeleteTask={handleDeleteTask}
+      />
 
       <Footer
         getActiveTodos={getActiveTodos}
@@ -122,4 +87,5 @@ export default function App() {
       />
     </div>
   );
-}
+};
+export default App;
