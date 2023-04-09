@@ -1,6 +1,34 @@
 import { useState } from "react";
 import "./styles.css";
 
+const Todo = ({ todo, toggleCompleteTask, handleDeleteTask }) => {
+  return (
+    <div className="todo">
+      <input
+        type="checkbox"
+        checked={todo.isCompleted}
+        onChange={() => toggleCompleteTask(todo.id)}
+      />
+      <span>{todo.task}</span>
+      <button className="btn-delete" onClick={() => handleDeleteTask(todo.id)}>
+        Delete
+      </button>
+    </div>
+  );
+};
+
+const Footer = ({ getActiveTodos, setFilter, clearCompletedTodos }) => {
+  return (
+    <div>
+      {getActiveTodos()} remaining todos
+      <button onClick={() => setFilter("All")}>All</button>
+      <button onClick={() => setFilter("Active")}>Active</button>
+      <button onClick={() => setFilter("Completed")}>Completed</button>
+      <button onClick={clearCompletedTodos}>Clear completed Task</button>
+    </div>
+  );
+};
+
 export default function App() {
   const [todos, setTodos] = useState([]);
   const [inputTodo, setInputTodo] = useState("");
@@ -74,34 +102,20 @@ export default function App() {
       </button>
       <div>
         {handleFilter().length > 0 ? (
-          handleFilter().map((todo, index) => (
-            <div className="todo" key={index}>
-              <input
-                type="checkbox"
-                checked={todo.isCompleted}
-                onChange={() => toggleCompleteTask(todo.id)}
-              />
-              <span>{todo.task}</span>
-              <button
-                className="btn-delete"
-                onClick={() => handleDeleteTask(todo.id)}
-              >
-                Delete
-              </button>
-            </div>
+          handleFilter().map((todo) => (
+            <Todo
+              key={todo.id}
+              todo={todo}
+              toggleCompleteTask={toggleCompleteTask}
+              handleDeleteTask={handleDeleteTask}
+            />
           ))
         ) : (
           <p>No Task avaliable</p>
         )}
       </div>
 
-      <div>
-        {getActiveTodos()} remaining todos
-        <button onClick={() => setFilter("All")}>All</button>
-        <button onClick={() => setFilter("Active")}>Active</button>
-        <button onClick={() => setFilter("Completed")}>Completed</button>
-        <button onClick={clearCompletedTodos}>Clear completed Task</button>
-      </div>
+      <Footer getActiveTodos={getActiveTodos} setFilter={setFilter} />
     </div>
   );
 }
