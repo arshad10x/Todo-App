@@ -29,7 +29,8 @@ export default function App() {
     const newTodos = todos.map((todo) => {
       if (todo.id === taskId) {
         return {
-          ...todo,
+          id: todo.id,
+          task: todo.task,
           isCompleted: !todo.isCompleted,
         };
       }
@@ -40,12 +41,18 @@ export default function App() {
 
   const handleFilter = () => {
     if (filter === "Active") {
-      return todos.filter((todo) => todo.isCompleted === fasle);
+      return todos.filter((todo) => todo.isCompleted === false);
     } else if (filter === "Completed") {
       return todos.filter((todo) => todo.isCompleted === true);
     } else {
       return todos;
     }
+  };
+
+  // clear all task
+  const clearCompletedTodos = () => {
+    const activeTodos = todos.filter((todo) => !todo.isCompleted);
+    setTodos(activeTodos);
   };
 
   return (
@@ -64,7 +71,7 @@ export default function App() {
             <div className="todo" key={index}>
               <input
                 type="checkbox"
-                value={todo.isCompleted}
+                checked={todo.isCompleted}
                 onChange={() => toggleCompleteTask(todo.id)}
               />
               <span>{todo.task}</span>
@@ -85,6 +92,7 @@ export default function App() {
         <button onClick={() => setFilter("All")}>All</button>
         <button onClick={() => setFilter("Active")}>Active</button>
         <button onClick={() => setFilter("Completed")}>Completed</button>
+        <button onClick={clearCompletedTodos}>Clear All Task</button>
       </div>
     </div>
   );
