@@ -4,7 +4,7 @@ import "./styles.css";
 export default function App() {
   const [todos, setTodos] = useState([]);
   const [inputTodo, setInputTodo] = useState("");
-
+  const [filter, setFilter] = useState("All");
   const handleAddTask = () => {
     setTodos([
       ...todos,
@@ -36,7 +36,16 @@ export default function App() {
       return todo;
     });
     setTodos(newTodos);
-    console.log(JSON.stringify(newTodos));
+  };
+
+  const handleFilter = () => {
+    if (filter === "Active") {
+      return todos.filter((todo) => todo.isCompleted === fasle);
+    } else if (filter === "Completed") {
+      return todos.filter((todo) => todo.isCompleted === true);
+    } else {
+      return todos;
+    }
   };
 
   return (
@@ -50,8 +59,8 @@ export default function App() {
         ADD
       </button>
       <div>
-        {todos.length > 0 ? (
-          todos.map((todo, index) => (
+        {handleFilter().length > 0 ? (
+          handleFilter().map((todo, index) => (
             <div className="todo" key={index}>
               <input
                 type="checkbox"
@@ -70,6 +79,12 @@ export default function App() {
         ) : (
           <p>No Task avaliable</p>
         )}
+      </div>
+
+      <div>
+        <button onClick={() => setFilter("All")}>All</button>
+        <button onClick={() => setFilter("Active")}>Active</button>
+        <button onClick={() => setFilter("Completed")}>Completed</button>
       </div>
     </div>
   );
