@@ -55,6 +55,13 @@ export default function App() {
     setTodos(activeTodos);
   };
 
+  // Task remaining
+
+  const getActiveTodos = () => {
+    const activeTodos = todos.filter((todo) => !todo.isCompleted);
+    return activeTodos.length;
+  };
+
   return (
     <div>
       <input
@@ -89,10 +96,11 @@ export default function App() {
       </div>
 
       <div>
+        {getActiveTodos()} remaining todos
         <button onClick={() => setFilter("All")}>All</button>
         <button onClick={() => setFilter("Active")}>Active</button>
         <button onClick={() => setFilter("Completed")}>Completed</button>
-        <button onClick={clearCompletedTodos}>Clear All Task</button>
+        <button onClick={clearCompletedTodos}>Clear completed Task</button>
       </div>
     </div>
   );
