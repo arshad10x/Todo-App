@@ -115,7 +115,11 @@ export default function App() {
         )}
       </div>
 
-      <Footer getActiveTodos={getActiveTodos} setFilter={setFilter} />
+      <Footer
+        getActiveTodos={getActiveTodos}
+        setFilter={setFilter}
+        clearCompletedTodos={clearCompletedTodos}
+      />
     </div>
   );
 }
